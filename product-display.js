@@ -82,8 +82,10 @@ const labels = new Map();
 function basicDisplay(p) {
   const strength = productDisplayStrength(p);
   const form = productDisplayForm(p);
+  // MIXTURE belongs to this product's registered trade name; keep it intact.
+  const fullTradeName = p.license === '衛署藥製字第030862號' && plain(p.english) === 'COUGH MIXTURE';
   return {
-    english: [brand(p), form, strength.value].filter(Boolean).join(' '),
+    english: fullTradeName ? 'COUGH MIXTURE' : [brand(p), form, strength.value].filter(Boolean).join(' '),
     chinese: plain(p.name).replace(/^["“「『〝]?生達["”」』〞]?\s*/, '').replace(/[(（][^()（）]*[)）]/g, '').trim(),
     strength: strength.value,
     strengthSource: strength.source,
