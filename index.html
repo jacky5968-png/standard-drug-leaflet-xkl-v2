@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="搜尋產品、輸入問題，查閱 XML 仿單原文與藥品比較。"><title>生達 | 藥品仿單查詢</title><link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="medical-journal.css"><script type="module" src="app.js"></script></head>
+<body>
+<a class="skip-link" href="#main-content">跳至查詢內容</a>
+<header class="topbar"><div class="masthead-inner"><div><p class="editorial-kicker" hidden>DRUG INFORMATION <span aria-hidden="true">/</span> 藥品資訊</p><h1>生達 | 藥品仿單查詢</h1><p class="masthead-description">從產品到問題，查閱答案與仿單原文。</p></div><img class="site-avatar" src="assets/YT頭像.png" alt="網站頭像" width="64" height="64" decoding="async"><div class="masthead-index" hidden><span class="index-label">PRODUCT LIBRARY</span><strong id="header-count">180項產品</strong><span>依許可證與版本保留來源</span></div></div></header>
+<main class="shell" id="main-content">
+<nav class="tabs" aria-label="主要功能"><button class="nav active" id="tab-single" data-view="single" aria-label="單品查詢" aria-current="page"><span class="nav-number" aria-hidden="true">01</span><span class="nav-label">單品查詢</span><span class="nav-description" aria-hidden="true">Product lookup</span></button><button class="nav" id="tab-compare" data-view="compare" aria-label="藥品比較"><span class="nav-number" aria-hidden="true">02</span><span class="nav-label">藥品比較</span><span class="nav-description" aria-hidden="true">Drug comparison</span></button><button class="nav" id="tab-leaflet" data-view="leaflet" aria-label="完整仿單"><span class="nav-number" aria-hidden="true">03</span><span class="nav-label">完整仿單</span><span class="nav-description" aria-hidden="true">Full prescribing information</span></button></nav>
+<div id="load-error" class="notice error" role="alert" hidden></div>
+<section id="view-single" class="view">
+ <div class="panel query-panel">
+  <div class="panel-heading"><p class="section-kicker">01 / PRODUCT LOOKUP</p><h2>單品查詢</h2><p>搜尋產品、選擇相關題目，再查看精簡答案與 XML 依據。</p></div>
+  <div class="query-grid">
+   <div class="query-column"><h2 class="field-heading"><span class="step-number">1</span><label for="search-single">商品名或成分名</label></h2><div id="single-picker"></div></div>
+   <div class="query-column"><h2 class="field-heading"><span class="step-number">2</span><label for="single-question">問題</label></h2><div class="input-with-icon"><img src="assets/query-icons/question.svg" alt="" width="22" height="22"><input id="single-question" placeholder="例如：錠劑可否剝半、腎功能調整" autocomplete="off" aria-controls="single-choices"></div><p id="single-choice-label" class="field-caption">輸入問題，選擇建議問法</p><div id="single-choices" class="choices" aria-live="polite"></div></div>
+  </div>
+  <div class="examples" data-target="single"><span>常用問題</span><button>用法用量</button><button>腎功能</button><button>肝功能</button><button>可否剝半</button><button>交互作用</button><button>孕婦可否使用</button></div>
+  <div class="query-footer"><div class="query-summary"><p>您要查詢的是</p><strong id="single-summary">請先選擇產品與問題</strong></div><div class="query-actions"><button id="single-ask" class="primary" disabled>查詢</button><button id="single-clear" class="secondary">清除</button></div></div>
+  <p id="single-hint" class="query-hint" aria-live="polite">先選擇產品與建議題目，再按「查詢」查看答案與來源。</p>
+ </div>
+ <div id="single-answer-layout" class="answer-layout" hidden><aside id="single-product-nav" class="product-nav" aria-label="查詢品項"></aside><div id="single-results" class="results" aria-live="polite"></div></div>
+</section>
+<section id="view-compare" class="view" hidden><div class="panel"><h2>同一問題，比較2～4項藥品</h2><p class="sub">選擇比較產品，輸入同一問題，分別查看各產品的答案與仿單章節。</p><div id="compare-pickers" class="picker-grid"></div><label for="compare-question">比較問題</label><input id="compare-question" placeholder="例如：腎功能限制？／可以剝半嗎？" autocomplete="off"><div class="examples" data-target="compare"><span>常用問題</span><button>用法用量</button><button>腎功能</button><button>肝功能</button><button>可否剝半</button><button>交互作用</button><button>孕婦可否使用</button></div><button id="compare-ask" class="primary" hidden>查詢比較</button><div id="compare-choices" class="choices" aria-live="polite"></div><div id="compare-results" class="results comparison" aria-live="polite"></div></div><p class="notice">各產品依個別 XML 仿單判讀，不以不同試驗的比例直接判斷藥品優劣。</p></section>
+<section id="view-leaflet" class="view" hidden><div class="panel"><h2>依章節閱讀完整仿單</h2><div id="leaflet-picker"></div><label for="leaflet-query">仿單全文關鍵字</label><input id="leaflet-query" type="search" placeholder="例如：Clcr、交互作用、懷孕" autocomplete="off"><p class="muted">搜尋 XML 章節文字；圖中文字尚未做 OCR。</p><div id="leaflet-results" aria-live="polite"></div></div></section>
+<footer><p hidden><span id="import-count">正在載入產品索引…</span> · 依許可證與版本保留來源</p><p>謝藥師 AI 分身 產出</p></footer></main></body></html>
