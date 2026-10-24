@@ -122,7 +122,7 @@ function card(p,answer){
 }
 function singleCard(p,answer,index){
   const root=card(p,answer),label=productDisplay(p),text=root.querySelector('.answer-text');
-  const copyText=text.textContent;
+  const copyText=`題目：${label.english} 的「${answer.question}」\n答案：${text.textContent}`;
   root.classList.add('single-qa-card');
   root.querySelector(':scope > h3').remove();
   root.querySelector('.answer-product .english').remove();
@@ -135,7 +135,7 @@ function singleCard(p,answer,index){
   const actions=document.createElement('div');actions.className='single-qa-actions';
   const feedback=document.createElement('span');feedback.className='copy-feedback';feedback.setAttribute('role','status');feedback.setAttribute('aria-live','polite');
   const copy=document.createElement('button');copy.type='button';copy.className='copy-answer text-button';copy.textContent='複製答案';
-  copy.onclick=async()=>{copy.disabled=true;feedback.textContent='';try{await navigator.clipboard.writeText(copyText);feedback.textContent='已複製答案'}catch{feedback.textContent='無法自動複製，請選取答案文字複製。'}finally{copy.disabled=false}};
+  copy.onclick=async()=>{copy.disabled=true;feedback.textContent='';try{await navigator.clipboard.writeText(copyText);feedback.textContent='已複製題目與答案'}catch{feedback.textContent='無法自動複製，請選取題目與答案文字複製。'}finally{copy.disabled=false}};
   actions.append(feedback,copy);body.append(actions);disclosure.append(heading,body);root.append(disclosure);
   return root;
 }
