@@ -120,6 +120,25 @@ function card(p,answer){
   }
   return root;
 }
+function singleCard(p,answer,index){
+  const root=card(p,answer),label=productDisplay(p),text=root.querySelector('.answer-text');
+  const copyText=text.textContent;
+  root.classList.add('single-qa-card');
+  root.querySelector(':scope > h3').remove();
+  root.querySelector('.answer-product .english').remove();
+  const answerLabel=document.createElement('strong');answerLabel.textContent='答案：';text.prepend(answerLabel);
+  const disclosure=document.createElement('details');disclosure.className='single-qa';disclosure.open=true;
+  const heading=document.createElement('summary');heading.className='single-qa-summary';
+  heading.innerHTML=`<span class="single-qa-number" aria-hidden="true">${String(index+1).padStart(2,'0')}</span><span class="single-qa-title">題目：<strong>${esc(label.english)}</strong> 的「${esc(answer.question)}」</span><span class="single-qa-state" aria-hidden="true">收合</span>`;
+  disclosure.addEventListener('toggle',()=>{heading.querySelector('.single-qa-state').textContent=disclosure.open?'收合':'展開'});
+  const body=document.createElement('div');body.className='single-qa-body';body.append(...root.childNodes);
+  const actions=document.createElement('div');actions.className='single-qa-actions';
+  const feedback=document.createElement('span');feedback.className='copy-feedback';feedback.setAttribute('role','status');feedback.setAttribute('aria-live','polite');
+  const copy=document.createElement('button');copy.type='button';copy.className='copy-answer text-button';copy.textContent='複製答案';
+  copy.onclick=async()=>{copy.disabled=true;feedback.textContent='';try{await navigator.clipboard.writeText(copyText);feedback.textContent='已複製答案'}catch{feedback.textContent='無法自動複製，請選取答案文字複製。'}finally{copy.disabled=false}};
+  actions.append(feedback,copy);body.append(actions);disclosure.append(heading,body);root.append(disclosure);
+  return root;
+}
 async function openSource(p,sectionId){$('leaflet-query').value='';$('tab-leaflet').click();await productPickers.get('leaflet')(products.find(x=>x.id===p.license));const section=$('leaf-'+sectionId);if(section){section.open=true;section.scrollIntoView({behavior:'smooth',block:'start'})}}
 async function suggestQuestions(view){
   reset(view);const token=epochs[view],target=$(view+'-choices'),q=$(view+'-question').value.trim(),chosen=chosenProducts(view),label=$(view+'-choice-label');
@@ -137,7 +156,7 @@ function scheduleSuggestions(view){reset(view);if($(view+'-question').value.trim
 async function ask(view){const chosen=chosenProducts(view),t=selectedQuestions[view];if(!t||chosen.length<(view==='compare'?2:1))return;const token=++epochs[view];$(view+'-ask').disabled=true;$(view+'-hint').textContent='正在讀取本次查詢的答案與XML來源…';try{
  const[full,reviews,audit]=await Promise.all([Promise.all(chosen.map(load)),json('data/extensions.json'),json('data/audit-holds.json')]);if(token!==epochs[view])return;extensions=reviews;auditHolds=audit.engine_version===QA_VERSION?audit.holds:[];
  const results=$(view+'-results'),nav=$(view+'-product-nav');results.replaceChildren();nav.innerHTML=`<div class="product-nav-heading"><strong>查詢品項</strong><span>${full.length} 項</span></div>`;
- full.forEach((p,i)=>{const article=card(p,answerQuestion(p,t,extensions.reviews,[...(extensions.pending_reviews||[]),...auditHolds]));article.id=view+'-answer-'+i;if(view==='single'){const add=document.createElement('button');add.type='button';add.className='add-comparison text-button';add.textContent='加入比較';add.onclick=()=>{$('tab-compare').click();if(!$('compare-question').value.trim())$('compare-question').value=$('single-question').value;addComparisonProduct(chosen[i]);};article.querySelector('.answer-product').append(add);}results.append(article);const b=document.createElement('button');b.type='button';b.className='queried-product'+(i===0?' selected':'');b.innerHTML=`<strong>${esc(productDisplay(p).english)}</strong><span>${esc(productDisplay(p).chinese)}</span>`;b.onclick=()=>{nav.querySelectorAll('button').forEach(n=>n.classList.toggle('selected',n===b));article.scrollIntoView({behavior:'smooth',block:'start'})};nav.append(b);});
+ full.forEach((p,i)=>{const answer=answerQuestion(p,t,extensions.reviews,[...(extensions.pending_reviews||[]),...auditHolds]),article=view==='single'?singleCard(p,answer,i):card(p,answer);article.id=view+'-answer-'+i;if(view==='single'){const add=document.createElement('button');add.type='button';add.className='add-comparison text-button';add.textContent='加入比較';add.onclick=()=>{$('tab-compare').click();if(!$('compare-question').value.trim())$('compare-question').value=$('single-question').value;addComparisonProduct(chosen[i]);};article.querySelector('.answer-product').append(add);}results.append(article);const b=document.createElement('button');b.type='button';b.className='queried-product'+(i===0?' selected':'');b.innerHTML=`<strong>${esc(productDisplay(p).english)}</strong><span>${esc(productDisplay(p).chinese)}</span>`;b.onclick=()=>{nav.querySelectorAll('button').forEach(n=>n.classList.toggle('selected',n===b));const disclosure=article.querySelector('.single-qa');if(disclosure)disclosure.open=true;article.scrollIntoView({behavior:'smooth',block:'start'})};nav.append(b);});
  $(view+'-answer-layout').hidden=false;$(view+'-hint').textContent='已顯示上述詢問用詞的來源答案；修改輸入後請再次查詢。';
  }catch(e){if(token===epochs[view])$(view+'-hint').textContent=e.message;}finally{if(token===epochs[view])syncQuery(view);}}
 function clearQuery(view){if(view==='compare')selected.compare=[null,null,null,null];else selected.single=null;reset(view);$('search-'+view).value='';$('search-'+view).setAttribute('aria-expanded','false');$('options-'+view).replaceChildren();$('meta-'+view).replaceChildren();$(view+'-question').value='';$('caption-'+view).textContent=view==='compare'?'搜尋並加入2～4項產品':'輸入後才顯示符合品項';$(view+'-choice-label').textContent='輸入問題，選擇建議問法';$('search-'+view).focus();}

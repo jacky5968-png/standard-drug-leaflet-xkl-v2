@@ -298,3 +298,30 @@ label,.field-heading label {font-size:16px}
   .tabs .nav .nav-label {font-size:17px}
   .panel {padding:20px 15px}
 }
+
+/* 單品問答卡：收合、複製與來源皆限於單品頁，保留比較頁原樣。 */
+#single-results .single-qa-card {padding:0;border:1px solid var(--line);border-radius:12px}
+.single-qa-summary {display:flex;align-items:baseline;gap:12px;list-style:none;padding:21px 26px;background:var(--soft);color:var(--ink);border-radius:12px;border-bottom:1px solid transparent}
+.single-qa-summary::-webkit-details-marker {display:none}
+.single-qa-summary:hover {background:#c7e3d4}
+.single-qa[open]>.single-qa-summary {border-bottom-color:var(--line);border-radius:12px 12px 0 0}
+.single-qa-number {font-size:12px;font-weight:400;color:#435867;flex:0 0 auto}
+.single-qa-title {font-size:17px;font-weight:600;line-height:1.8;min-width:0;flex:1;overflow-wrap:anywhere}
+.single-qa-state {font-size:13px;color:var(--teal);font-weight:600;flex:0 0 auto}
+.single-qa-body {padding:23px 28px}
+.single-qa-body>.answer-product,.single-qa-body>.answer-product:has(.add-comparison) {display:flex;align-items:center;justify-content:space-between;gap:12px;padding:0 0 16px;margin:0 0 18px}
+.single-qa-body>.answer-product>.chinese {margin:0;min-width:0;overflow-wrap:anywhere}
+.single-qa-card .add-comparison {order:0;margin:0;flex:0 0 auto;align-self:center}
+.single-qa-card .answer-text {background:transparent;border:0;padding:0;margin-bottom:20px}
+.single-qa-actions {display:flex;align-items:center;justify-content:flex-end;flex-wrap:wrap;gap:8px 16px;min-height:44px;margin-top:18px}
+.single-qa-actions .copy-feedback {flex:1;min-width:0;font-size:13px;color:var(--teal);overflow-wrap:anywhere}
+.single-qa-actions .copy-answer {min-height:44px;font-size:14px;border:0;background:transparent}
+.single-qa-actions .copy-answer:hover {background:var(--soft)}
+@media(max-width:700px) {
+  .single-qa-summary {padding:17px 16px;gap:9px}
+  .single-qa-title {font-size:16px}
+  .single-qa-body {padding:20px 17px}
+}
+@media(max-width:400px) {
+  .single-qa-body>.answer-product,.single-qa-body>.answer-product:has(.add-comparison) {flex-wrap:wrap}
+}
