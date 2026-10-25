@@ -84,8 +84,9 @@ function basicDisplay(p) {
   const form = productDisplayForm(p);
   // MIXTURE belongs to this product's registered trade name; keep it intact.
   const fullTradeName = p.license === '衛署藥製字第030862號' && plain(p.english) === 'COUGH MIXTURE';
+  const shielinTradeName = p.license === '衛署藥製字第004761號' && plain(p.english) === 'SHIELIN POWDER';
   return {
-    english: fullTradeName ? 'COUGH MIXTURE' : [brand(p), form, strength.value].filter(Boolean).join(' '),
+    english: shielinTradeName ? 'Shielin Powder' : fullTradeName ? 'COUGH MIXTURE' : [brand(p), form, strength.value].filter(Boolean).join(' '),
     chinese: plain(p.name).replace(/^["“「『〝]?生達["”」』〞]?\s*/, '').replace(/[(（][^()（）]*[)）]/g, '').trim(),
     strength: strength.value,
     strengthSource: strength.source,
