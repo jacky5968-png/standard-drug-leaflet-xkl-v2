@@ -1,6 +1,6 @@
 import {searchProducts as searchOriginalProducts,rankedQuestions,answerQuestion,normalize} from './engine.js';
 import {QA_VERSION} from './qa.js';
-import {configureProductDisplay,productDisplay,searchProductsForDisplay} from './product-display.js?v=20261025-shielin';
+import {configureProductDisplay,productDisplay,searchProductsForDisplay} from './product-display.js?v=20261025-name-audit';
 const searchProducts=(items,query)=>searchProductsForDisplay(items,query,searchOriginalProducts);
 const $=id=>document.getElementById(id), esc=x=>String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 let products=[],bank,extensions={questions:[],reviews:[]},auditHolds=[];

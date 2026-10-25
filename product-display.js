@@ -78,6 +78,17 @@ function brand(p) {
   return text.replace(/[\s"'“”‘’.,;:]+$/g, '').trim() || plain(p.name).replace(/^["“「]?生達["”」]?\s*/, '') || p.license;
 }
 
+// Keep original English trade-name descriptors instead of replacing them with Chinese forms.
+// SR/XL/ODT and special-release identity markers continue to use the established labels.
+function sourceFormTradeName(p, form, strength) {
+  if (!form || ['腸溶', 'ODT', 'XL', 'SR', '緩釋'].includes(form)) return '';
+  const source = beforeManufacturer(p.english).replace(/\([^)]*\)/g, ' ').replace(/\s+/g, ' ').trim();
+  if (!/\b(?:injection|infusion|inj|nasal\s+spray|vaginal|troches?|lozenges?|cream|ointment|gauze|dressing|suspension|syrup|granules?|solution|liquid|mixture|powder)\b/i.test(source)) return '';
+  const dose = new RegExp(dosePattern.source, 'i').exec(source);
+  const name = (dose ? source.slice(0, dose.index) : source).trim();
+  return [name, strength].filter(Boolean).join(' ');
+}
+
 const labels = new Map();
 function basicDisplay(p) {
   const strength = productDisplayStrength(p);
@@ -86,7 +97,7 @@ function basicDisplay(p) {
   const fullTradeName = p.license === '衛署藥製字第030862號' && plain(p.english) === 'COUGH MIXTURE';
   const shielinTradeName = p.license === '衛署藥製字第004761號' && plain(p.english) === 'SHIELIN POWDER';
   return {
-    english: shielinTradeName ? 'Shielin Powder' : fullTradeName ? 'COUGH MIXTURE' : [brand(p), form, strength.value].filter(Boolean).join(' '),
+    english: shielinTradeName ? 'Shielin Powder' : fullTradeName ? 'COUGH MIXTURE' : sourceFormTradeName(p, form, strength.value) || [brand(p), form, strength.value].filter(Boolean).join(' '),
     chinese: plain(p.name).replace(/^["“「『〝]?生達["”」』〞]?\s*/, '').replace(/[(（][^()（）]*[)）]/g, '').trim(),
     strength: strength.value,
     strengthSource: strength.source,
@@ -128,7 +139,8 @@ export function searchProductsForDisplay(products, query, originalSearch) {
   const compact = value => plain(value).toLowerCase().replace(/\s+/g, '');
   const aliases = products.filter(p => {
     const label = productDisplay(p);
-    const text = compact(label.english + ' ' + label.chinese);
+    const previousLabel = [brand(p), label.form, label.strength].filter(Boolean).join(' ');
+    const text = compact(label.english + ' ' + label.chinese + ' ' + previousLabel);
     return terms.every(term => text.includes(compact(term)));
   });
   return [...new Map([...originalSearch(products, query), ...aliases].map(p => [p.id || p.license, p])).values()];
