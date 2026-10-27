@@ -6,7 +6,7 @@ tab.addEventListener('click',async()=>{
   const status=document.getElementById('all-status');
   status.textContent='正在準備全部藥品仿單查詢…';
   try {
-    if (!pending) pending=import('./all-drugs.js');
+    if (!pending) pending=import('./all-drugs.js?v=20261027-photo20');
     const module=await pending;
     await module.mount();
     mounted=true;

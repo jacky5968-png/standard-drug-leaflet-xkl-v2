@@ -57,9 +57,8 @@ export function productPhoto(row) {
       anchor.textContent='查看官方照片';anchor.classList.add('all-photo-fallback-link');
     };
     body.hidden=true;anchor.append(img);figure.append(anchor);
-    const source=element('a','TFDA外觀圖','all-photo-source');source.href='https://data.gov.tw/dataset/9120';source.target='_blank';source.rel='noopener noreferrer';
-    source.title='依完整許可證字號對應；官方資料下載日期 '+manifest.source.downloaded_at.slice(0,10)+(urls.length>1?'；共 '+urls.length+' 張，縮圖顯示第1張':'');
-    figure.append(source);figure.dataset.photoState='loading';img.src=urls[0];
+    figure.title='TFDA藥品外觀資料集9120；依完整許可證字號對應；官方資料下載日期 '+manifest.source.downloaded_at.slice(0,10)+(urls.length>1?'；共 '+urls.length+' 張，縮圖顯示第1張':'');
+    figure.dataset.photoState='loading';img.src=urls[0];
   }).catch(()=>{
     if(!figure.isConnected)return;
     figure.querySelector('.all-photo-placeholder').textContent='照片資料暫無法讀取';figure.dataset.photoState='metadata-unavailable';
