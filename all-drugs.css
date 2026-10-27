@@ -1,0 +1,107 @@
+/* Four adjacent tabs; the original panel content remains unchanged. */
+nav.tabs {grid-template-columns:repeat(4,minmax(0,1fr))}
+.tabs #tab-all-drugs {min-height:76px;background:#3b3b3b;color:#ffd5a6}
+.tabs #tab-all-drugs .nav-number {color:#ffd5a6}
+.tabs #tab-all-drugs.active {background:#222;color:#ffad55;border-bottom-color:#f28b2e}
+.tabs #tab-all-drugs.active .nav-number {color:#ffad55}
+.tabs #tab-all-drugs:not(.active):hover {background:#49413a;color:#ffe1bd}
+.tabs #tab-all-drugs:focus-visible {outline-color:#f28b2e}
+#view-all-drugs {--ink:#222;--muted:#5b5148;--teal:#a64a07;--line:#e4cdb7;font-family:"Microsoft JhengHei","微軟正黑體",sans-serif;min-width:0;color:#222}
+#view-all-drugs>.panel {border-color:#e4c5a8;border-top-color:#222}
+#view-all-drugs h2,#view-all-drugs h3,#view-all-drugs h4,#view-all-drugs label {color:#222}
+#view-all-drugs .section-kicker {color:#824109}
+#view-all-drugs a {color:#53310f}
+#view-all-drugs button:focus-visible,#view-all-drugs a:focus-visible,#view-all-drugs summary:focus-visible {outline:3px solid #222;outline-offset:3px}
+#view-all-drugs input:not([type=checkbox]):focus {border-color:#bc5a0b;box-shadow:0 0 0 3px #f28b2e26}
+#view-all-drugs .all-heading {border-left:4px solid #f28b2e;background:#fff0df;padding:20px;margin-bottom:24px}
+#view-all-drugs h2 {margin-bottom:9px}
+#view-all-drugs .all-heading p {margin:5px 0;line-height:1.8}
+#view-all-drugs .all-publication-notice {margin:0 0 22px;padding:15px 18px;background:#fff4e7;border:1px solid #e6bb91;border-left:4px solid #f28b2e;font-size:14px;color:#222}
+#view-all-drugs .all-publication-notice p {margin:5px 0}
+#view-all-drugs .all-muted {color:#5b5148;font-size:13px}
+#view-all-drugs .all-form {margin-top:20px}
+#view-all-drugs .all-input-row {display:flex;gap:10px;align-items:stretch}
+#view-all-drugs .all-input-row input {flex:1;min-width:0;width:100%}
+#view-all-drugs input:not([type=checkbox]) {color:#222;border-color:#d0bfaf}
+#view-all-drugs input::placeholder {color:#6b5a4b}
+#view-all-drugs button,#view-all-drugs select {font:inherit}
+#view-all-drugs button {border-radius:4px;padding:9px 15px;border:1px solid #cfb69e;background:#fff;color:#222}
+#view-all-drugs .all-search-button,#view-all-drugs .all-detail-button {background:#f28b2e;color:#191919;border-color:#c46716;font-weight:700}
+#view-all-drugs button:hover {filter:brightness(.94)}
+#view-all-drugs button:disabled {cursor:default}
+#view-all-drugs .all-filters {display:flex;gap:18px;flex-wrap:wrap;align-items:center;margin-top:16px}
+#view-all-drugs .all-filters label {display:flex;align-items:center;gap:9px;margin:0;font-weight:400;font-size:14px}
+#view-all-drugs select {min-height:42px;max-width:100%;border:1px solid #cfb69e;background:#fff;color:#222;padding:7px;border-radius:3px}
+#view-all-drugs input[type=checkbox] {min-height:0;width:18px;height:18px;box-shadow:none;accent-color:#dc7318}
+#view-all-drugs .all-status-line {display:flex;gap:12px;justify-content:space-between;align-items:baseline;flex-wrap:wrap;margin:20px 0 10px}
+#view-all-drugs #all-status {margin:0;font-size:14px;font-weight:700}
+#view-all-drugs #all-search-metrics {font-size:12px;white-space:nowrap;color:#5b5148}
+#view-all-drugs .all-suggestions {display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:14px 0}
+#view-all-drugs .all-suggestion-label {font-size:13px;color:#5b5148}
+#view-all-drugs .all-suggestions button {padding:5px 10px;font-size:13px;max-width:100%;overflow-wrap:anywhere;text-align:left;background:#fff2e4}
+#view-all-drugs .all-results {display:grid;gap:14px}
+#view-all-drugs .all-result {display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1.3fr) auto;gap:18px;border:1px solid #e3cbb5;border-left:4px solid #ef9b4c;border-radius:4px;padding:20px;background:#fff}
+#view-all-drugs .all-result>* {min-width:0}
+#view-all-drugs .all-result p {margin:4px 0;font-size:13px;overflow-wrap:anywhere}
+#view-all-drugs .all-result .all-result-title {font-size:18px;font-weight:700;text-align:left;background:transparent;border:0;padding:0;line-height:1.6;text-decoration:underline;text-underline-offset:4px;overflow-wrap:anywhere}
+#view-all-drugs .all-english {color:#423a33}
+#view-all-drugs .all-license {color:#5b5148}
+#view-all-drugs .all-badges {display:flex;flex-wrap:wrap;gap:6px;margin-top:9px}
+#view-all-drugs .all-badge {display:inline-block;font-size:12px;line-height:1.6;border:1px solid #d7c9bc;border-radius:3px;padding:3px 8px;background:#f6f1eb;color:#45382c}
+#view-all-drugs .all-badge-active {color:#65330e;background:#fff1df;border-color:#e3ab74}
+#view-all-drugs .all-badge-cancelled {color:#78320d;background:#fff0e5;border-color:#dda779}
+#view-all-drugs .all-badge-expired {color:#6a430d;background:#fff4e4;border-color:#dbb580}
+#view-all-drugs .all-result-actions {display:flex;align-items:center;justify-content:flex-end;gap:18px}
+#view-all-drugs .all-product-photo {margin:0;width:120px;max-width:100%;flex:0 0 120px;text-align:center;overflow-wrap:anywhere}
+#view-all-drugs .all-product-photo figcaption {font-size:12px;color:#45382c;margin-bottom:5px;font-weight:700}
+#view-all-drugs .all-product-photo img {display:block;width:112px;height:88px;max-width:100%;object-fit:contain;border:1px solid #e4d3c3;border-radius:3px;background:#fff;margin:auto}
+#view-all-drugs .all-photo-placeholder {display:flex;align-items:center;justify-content:center;min-height:88px;padding:9px;border:1px solid #e4d3c3;background:#faf5f0;border-radius:3px;font-size:12px;line-height:1.6;color:#65584d;text-wrap:balance}
+#view-all-drugs .all-photo-source,#view-all-drugs .all-photo-fallback-link {display:block;font-size:11px;margin-top:4px}
+#view-all-drugs .all-pagination {display:flex;align-items:center;justify-content:center;gap:18px;margin:24px 0}
+#view-all-drugs .all-detail {border:2px solid #d98940;background:#fff;padding:26px;margin:26px 0;scroll-margin-top:20px}
+#view-all-drugs .all-detail-header {display:flex;gap:16px;align-items:flex-start;justify-content:space-between;border-bottom:1px solid #e4cdb7;padding-bottom:14px;margin-bottom:18px}
+#view-all-drugs .all-detail-header h3 {font-size:23px;margin:0;overflow-wrap:anywhere;min-width:0}
+#view-all-drugs .all-detail-header button {flex-shrink:0;font-size:13px}
+#view-all-drugs .all-fields {display:grid;grid-template-columns:155px minmax(0,1fr);font-size:14px;margin:0}
+#view-all-drugs .all-fields dt,#view-all-drugs .all-fields dd {margin:0;padding:12px;border-bottom:1px solid #eaded2;white-space:pre-wrap;overflow-wrap:anywhere}
+#view-all-drugs .all-fields dt {font-weight:700;background:#fff1e1}
+#view-all-drugs h4 {font-size:17px;margin:0 0 10px}
+#view-all-drugs .all-ingredient-details,#view-all-drugs .all-official-sources {margin-top:24px;padding-top:20px;border-top:1px solid #e4cdb7}
+#view-all-drugs .all-ingredient-details ul {padding-left:22px;font-size:14px}
+#view-all-drugs .all-ingredient-details li {margin:14px 0;overflow-wrap:anywhere}
+#view-all-drugs .all-ingredient-details p {margin:4px 0}
+#view-all-drugs .all-official-sources {display:grid;grid-template-columns:1fr 1fr;gap:20px}
+#view-all-drugs .all-official-sources {margin-top:10px;padding-top:10px;margin-bottom:24px;border-bottom:1px solid #e4cdb7;padding-bottom:18px}
+#view-all-drugs .all-basic-heading {margin-top:26px}
+#view-all-drugs .all-access-help {margin-bottom:24px}
+#view-all-drugs .all-access-help span {margin-left:12px;font-size:13px;overflow-wrap:anywhere}
+#view-all-drugs .all-official-link {display:block;margin:7px 0;border:1px solid #d98940;padding:10px 13px;border-radius:3px;text-decoration:none;background:#fff0df;font-weight:700;overflow-wrap:anywhere}
+#view-all-drugs .all-source-details {margin-top:22px;font-size:13px}
+#view-all-drugs .all-source-details summary {background:#fff0df;color:#222}
+#view-all-drugs .all-source-details p {margin:12px;overflow-wrap:anywhere}
+#view-all-drugs .all-hash {font-size:11px;color:#5b5148}
+#view-all-drugs .all-error {color:#8a3e0b}
+#view-all-drugs .all-scope-note {font-size:13px;border-left:3px solid #da8a3b;background:#fff5e8;padding:12px 15px;margin-top:20px}
+@media(max-width:1000px) {
+  #view-all-drugs .all-result {grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+  #view-all-drugs .all-result-actions {grid-column:1/-1;justify-content:flex-start}
+}
+@media(max-width:700px) {
+  nav.tabs .nav,nav.tabs #tab-all-drugs {min-height:76px;flex-direction:column;gap:3px;padding:10px 4px;justify-content:center}
+  nav.tabs .nav .nav-label {font-size:14px;white-space:normal;text-wrap:balance;max-width:100%;flex-shrink:1;line-height:1.5;text-align:center}
+  #view-all-drugs .all-heading {padding:15px}
+  #view-all-drugs .all-input-row {flex-wrap:wrap}
+  #view-all-drugs .all-input-row input {flex-basis:100%}
+  #view-all-drugs .all-input-row button {flex:1}
+  #view-all-drugs .all-filters {gap:12px}
+  #view-all-drugs .all-result {grid-template-columns:minmax(0,1fr);padding:16px;gap:12px}
+  #view-all-drugs .all-result-actions {grid-column:auto}
+  #view-all-drugs .all-result-actions {flex-wrap:wrap;gap:12px}
+  #view-all-drugs .all-detail {padding:15px}
+  #view-all-drugs .all-detail-header {display:block}
+  #view-all-drugs .all-detail-header button {margin-top:12px}
+  #view-all-drugs .all-fields {grid-template-columns:1fr}
+  #view-all-drugs .all-fields dt {border-bottom:0;padding-bottom:5px}
+  #view-all-drugs .all-fields dd {padding-top:5px}
+  #view-all-drugs .all-official-sources {grid-template-columns:1fr}
+}
