@@ -40,7 +40,7 @@ export function productPhoto(row) {
   figure.dataset.license=row[0];
   figure.append(element('figcaption','產品照片'),element('div','查詢照片…','all-photo-placeholder'));
   // Metadata is small, cached once and independent of the search/QA modules.
-  getIndex().then(({entries,manifest})=>{
+  getIndex().then(({entries})=>{
     if(!figure.isConnected)return;
     const entry=entries[row[0]];
     const urls=entry?.license===row[0]?entry.urls?.map(photoUrl).filter(Boolean):[];
@@ -57,7 +57,6 @@ export function productPhoto(row) {
       anchor.textContent='查看官方照片';anchor.classList.add('all-photo-fallback-link');
     };
     body.hidden=true;anchor.append(img);figure.append(anchor);
-    figure.title='TFDA藥品外觀資料集9120；依完整許可證字號對應；官方資料下載日期 '+manifest.source.downloaded_at.slice(0,10)+(urls.length>1?'；共 '+urls.length+' 張，縮圖顯示第1張':'');
     figure.dataset.photoState='loading';img.src=urls[0];
   }).catch(()=>{
     if(!figure.isConnected)return;

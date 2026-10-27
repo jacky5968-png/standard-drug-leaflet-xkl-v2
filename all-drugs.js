@@ -1,5 +1,5 @@
 import {validateManifest,dataPath,officialUrl,licenseStatus,taiwanToday} from './all-drugs-core.js';
-import {productPhoto} from './product-photos.js?v=20261027-photo20';
+import {productPhoto} from './product-photos.js?v=20261027-photo-clean';
 const $=id=>document.getElementById(id);
 const create=(tag,text,className)=>{
   const element=document.createElement(tag);
