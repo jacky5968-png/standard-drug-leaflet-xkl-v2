@@ -52,10 +52,10 @@ nav.tabs {grid-template-columns:repeat(4,minmax(0,1fr))}
 #view-all-drugs .all-badge-cancelled {color:#78320d;background:#fff0e5;border-color:#dda779}
 #view-all-drugs .all-badge-expired {color:#6a430d;background:#fff4e4;border-color:#dbb580}
 #view-all-drugs .all-result-actions {display:flex;align-items:center;justify-content:flex-end;gap:18px}
-#view-all-drugs .all-product-photo {margin:0;width:120px;max-width:100%;flex:0 0 120px;text-align:center;overflow-wrap:anywhere}
+#view-all-drugs .all-product-photo {margin:0;width:180px;max-width:100%;flex:0 0 180px;text-align:center;overflow-wrap:anywhere}
 #view-all-drugs .all-product-photo figcaption {font-size:12px;color:#45382c;margin-bottom:5px;font-weight:700}
-#view-all-drugs .all-product-photo img {display:block;width:112px;height:88px;max-width:100%;object-fit:contain;border:1px solid #e4d3c3;border-radius:3px;background:#fff;margin:auto}
-#view-all-drugs .all-photo-placeholder {display:flex;align-items:center;justify-content:center;min-height:88px;padding:9px;border:1px solid #e4d3c3;background:#faf5f0;border-radius:3px;font-size:12px;line-height:1.6;color:#65584d;text-wrap:balance}
+#view-all-drugs .all-product-photo img {display:block;width:168px;height:132px;max-width:100%;object-fit:contain;border:1px solid #e4d3c3;border-radius:3px;background:#fff;margin:auto}
+#view-all-drugs .all-photo-placeholder {display:flex;align-items:center;justify-content:center;min-height:132px;padding:9px;border:1px solid #e4d3c3;background:#faf5f0;border-radius:3px;font-size:12px;line-height:1.6;color:#65584d;text-wrap:balance}
 #view-all-drugs .all-photo-source,#view-all-drugs .all-photo-fallback-link {display:block;font-size:11px;margin-top:4px}
 #view-all-drugs .all-pagination {display:flex;align-items:center;justify-content:center;gap:18px;margin:24px 0}
 #view-all-drugs .all-detail {border:2px solid #d98940;background:#fff;padding:26px;margin:26px 0;scroll-margin-top:20px}
