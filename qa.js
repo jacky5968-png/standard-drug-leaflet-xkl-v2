@@ -17,10 +17,12 @@ import {remaining63Supplement} from './remaining-63-supplements.js';
 import {remaining54Supplement} from './remaining-54-supplements.js';
 import {remaining45Supplement} from './remaining-45-supplements.js';
 import {remaining37Supplement} from './remaining-37-supplements.js';
-import {clarification6Supplement} from './clarification-6-supplements.js';
+import {clarification6Supplement as previousClarification6Supplement} from './clarification-6-supplements.js';
+import {dosageSupplement} from './dosage-supplements.js?v=28';
+const clarification6Supplement=(p,t,a)=>dosageSupplement(p,t,previousClarification6Supplement(p,t,a));
 const sectionSupplement=(p,t,a)=>clarification6Supplement(p,t,remaining37Supplement(p,t,remaining45Supplement(p,t,remaining54Supplement(p,t,remaining63Supplement(p,t,remaining80Supplement(p,t,remaining101Supplement(p,t,remaining135Supplement(p,t,remaining222Supplement(p,t,remaining338Supplement(p,t,remaining367Supplement(p,t,remaining394Supplement(p,t,remaining425Supplement(p,t,remaining466Supplement(p,t,formulationSupplement(p,t,priority507Supplement(p,t,candidateSupplement(p,t,previousSectionSupplement(p,t,a))))))))))))))))));
 const norm=x=>String(x||'').normalize('NFKC').toLowerCase().replace(/\s+/g,'');
-export const QA_VERSION=27;
+export const QA_VERSION=28;
 const SEMANTICS={
  composition:/^(有效)?成分(?:及含量)?$|^主成分/,excipient:/賦形|其他成分/,form:/^劑型$|藥品外觀|^外觀$/,indication:/適應症|^用途/,dose:/用法|用量|調製方式|調配|給藥方式/,
  renal:/腎功能|腎機能|腎不全|腎臟/,hepatic:/肝功能|肝機能|肝不全/,elder:/老年|高齡|老人/,child:/小兒|兒童|孩童|青少年/,pregnancy:/懷孕|妊娠|孕婦/,lactation:/哺乳|授乳/,
