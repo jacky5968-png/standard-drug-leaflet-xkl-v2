@@ -1,5 +1,5 @@
-import {generateProductQuestions} from './qa.js';
-export {answerQuestion,generateProductQuestions} from './qa.js';
+import {generateProductQuestions} from './qa.js?v=27';
+export {answerQuestion,generateProductQuestions} from './qa.js?v=27';
 export const normalize = s => String(s||'').normalize('NFKC').toLowerCase().replace(/\s+/g,'');
 export function searchProducts(products, query) {
   const terms=String(query||'').normalize('NFKC').toLowerCase().trim().split(/\s+/).filter(Boolean);
