@@ -18,7 +18,7 @@ import {remaining54Supplement} from './remaining-54-supplements.js';
 import {remaining45Supplement} from './remaining-45-supplements.js';
 import {remaining37Supplement} from './remaining-37-supplements.js';
 import {clarification6Supplement as previousClarification6Supplement} from './clarification-6-supplements.js';
-import {dosageSupplement} from './dosage-supplements.js?v=28';
+import {dosageSupplement} from './dosage-supplements.js?v=28-final';
 const clarification6Supplement=(p,t,a)=>dosageSupplement(p,t,previousClarification6Supplement(p,t,a));
 const sectionSupplement=(p,t,a)=>clarification6Supplement(p,t,remaining37Supplement(p,t,remaining45Supplement(p,t,remaining54Supplement(p,t,remaining63Supplement(p,t,remaining80Supplement(p,t,remaining101Supplement(p,t,remaining135Supplement(p,t,remaining222Supplement(p,t,remaining338Supplement(p,t,remaining367Supplement(p,t,remaining394Supplement(p,t,remaining425Supplement(p,t,remaining466Supplement(p,t,formulationSupplement(p,t,priority507Supplement(p,t,candidateSupplement(p,t,previousSectionSupplement(p,t,a))))))))))))))))));
 const norm=x=>String(x||'').normalize('NFKC').toLowerCase().replace(/\s+/g,'');
