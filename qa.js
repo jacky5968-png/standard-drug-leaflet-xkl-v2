@@ -20,7 +20,7 @@ import {remaining37Supplement} from './remaining-37-supplements.js';
 import {clarification6Supplement} from './clarification-6-supplements.js';
 const sectionSupplement=(p,t,a)=>clarification6Supplement(p,t,remaining37Supplement(p,t,remaining45Supplement(p,t,remaining54Supplement(p,t,remaining63Supplement(p,t,remaining80Supplement(p,t,remaining101Supplement(p,t,remaining135Supplement(p,t,remaining222Supplement(p,t,remaining338Supplement(p,t,remaining367Supplement(p,t,remaining394Supplement(p,t,remaining425Supplement(p,t,remaining466Supplement(p,t,formulationSupplement(p,t,priority507Supplement(p,t,candidateSupplement(p,t,previousSectionSupplement(p,t,a))))))))))))))))));
 const norm=x=>String(x||'').normalize('NFKC').toLowerCase().replace(/\s+/g,'');
-export const QA_VERSION=26;
+export const QA_VERSION=27;
 const SEMANTICS={
  composition:/^(有效)?成分(?:及含量)?$|^主成分/,excipient:/賦形|其他成分/,form:/^劑型$|藥品外觀|^外觀$/,indication:/適應症|^用途/,dose:/用法|用量|調製方式|調配|給藥方式/,
  renal:/腎功能|腎機能|腎不全|腎臟/,hepatic:/肝功能|肝機能|肝不全/,elder:/老年|高齡|老人/,child:/小兒|兒童|孩童|青少年/,pregnancy:/懷孕|妊娠|孕婦/,lactation:/哺乳|授乳/,
@@ -31,7 +31,8 @@ const PROFILES={
  'excipients':{roles:['excipient'],whole:true},
  'common-03':{roles:['composition'],whole:true},'common-04':{roles:['form'],whole:true},'common-06':{roles:['indication'],whole:true},
  'common-07':{roles:['dose'],terms:['起始劑量','初始劑量','初期','開始劑量','起初','初次','初劑量']},
- 'common-08':{roles:['dose'],terms:['通常','一般','建議劑量','推薦','維持','後繼','成人','每次','每日','每天','一日']},
+ // 固定間隔的用量須同時有使用動作與明確數量；不將時間或頻次本身當作劑量。
+ 'common-08':{roles:['dose'],terms:['通常','一般','建議劑量','推薦','維持','後繼','成人','每次','每日','每天','一日'],pattern:/每(?:隔)?[\d一二兩三四五六七八九十半]+(?:[-－–—~～至到或][\d一二兩三四五六七八九十半]+)?(?:個)?小時(?:可|應|需|須|宜|建議)?(?:口含|含服|含用|含|口服|服用|使用|給予|給藥|服)(?:\d+(?:\.\d+)?|[一二兩三四五六七八九十半]+)(?:mg|毫克|錠|顆|片|粒|ml|毫升)/i},
  'common-09':{roles:['dose'],terms:['最高','最大','不得超過','不可超過','不能超過','不超過','上限']},
  'common-10':{roles:['dose'],pattern:/(?:每[日天]|[1一][日天]|一天)[^。；|]{0,10}?[\d一二兩三四五六七八九十多數~～至、或\-]+次|(?:每[日天]|[1一][日天]|一天)(?:服用|口服|服|用)?[\d一二兩三四五六七八九十]+[錠粒]|每日單次|分(?:成)?[\d一二三四五六七八九十~～至到\-]+次|[\d一二三四五六七八九十~～至到\-]+次分服|每日使用次數|每.{1,8}小時|間隔.{0,15}小時|早晚|[bt]\.?(?:i\.?d\.?)|q\.?d\.?/i},
  'common-11':{roles:['dose','patient','pk','interaction'],terms:['飯前','飯後','餐前','餐後','隨餐','空腹','用餐','食物','進食','餐中','餐時','飯中']},
@@ -138,7 +139,7 @@ function profile(t){
 // 工程核對使用同一份章節語意與題型設定，避免稽核另造一套排除規則。
 export function inspectQuestionSources(p,t){return {profile:profile(t),sections:sources(p)}}
 function evidence(p,t){
- const cfg=profile(t),hits=[];
+ const cfg=profile(t),hits=[],intervalDoseHits=[];
  for(const s of sources(p)){
   if(!meaningful(s.text))continue;
   if(cfg.roles&&!cfg.roles.some(r=>s.roles.has(r)))continue;
@@ -221,9 +222,11 @@ function evidence(p,t){
    if(t.id==='common-25'&&/尚未.*(?:試驗|研究)|目前.*尚未/u.test(quote))score-=25;
    if(t.source_section_ids?.includes(s.id))score+=8;
    const originalTable=u.table?(s.html||'').match(/<table\b[^>]*>[\s\S]*?<\/table>/gi)?.[priorityTables(s).findIndex(b=>b.quote===u.quote)]:null;
-   hits.push({section_id:s.id,no:s.no,title:s.title,quote,context:s.context,text_source:s.text_source||'VALUE',start,end,score,dedicated:!!direct,order:p.sections.findIndex(a=>a.id===s.id)*10000+i,...(u.label?{scope_label:u.label,scope_quote:u.scopeQuote}:{}),...(originalTable?{original_table_html:originalTable}:{}),...(t.id==='common-11'?{food_effect_only:s.roles.has('pk')&&!s.roles.has('dose')&&!s.roles.has('patient')}:{} )});
+   (t.id==='common-08'&&patternHit&&!termHit&&!titleHit&&!whole?intervalDoseHits:hits).push({section_id:s.id,no:s.no,title:s.title,quote,context:s.context,text_source:s.text_source||'VALUE',start,end,score,dedicated:!!direct,order:p.sections.findIndex(a=>a.id===s.id)*10000+i,...(u.label?{scope_label:u.label,scope_quote:u.scopeQuote}:{}),...(originalTable?{original_table_html:originalTable}:{}),...(t.id==='common-11'?{food_effect_only:s.roles.has('pk')&&!s.roles.has('dose')&&!s.roles.has('patient')}:{} )});
   }
  }
+ // 固定間隔只補足原本無答案的情況，避免擠掉既有的建議劑量與適應症條件。
+ if(!hits.length)hits.push(...intervalDoseHits);
  const dedup=new Map();for(const e of hits){const k=e.section_id+':'+e.start+':'+e.end,old=dedup.get(k);if(!old||e.table_label||!old.table_label&&e.score>old.score)dedup.set(k,e)}const unique=[...dedup.values()];
  const cfgHasDedicated=cfg.dedicated&&unique.some(e=>e.dedicated);
  // 優先專屬章節；禁忌／警語仍留下限制，避免只引用「無須調整」而漏掉禁用。
