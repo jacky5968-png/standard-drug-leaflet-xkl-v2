@@ -1,4 +1,4 @@
-import {searchProducts as searchOriginalProducts,rankedQuestions,answerQuestion,normalize} from './engine.js?v=28-final';
+import {searchProducts as searchOriginalProducts,rankedQuestions,answerQuestion,normalize} from './engine.js?v=28-urece-20261029';
 import {QA_VERSION} from './qa.js?v=28-final';
 import {configureProductDisplay,productDisplay,searchProductsForDisplay} from './product-display.js?v=20261025-name-audit';
 const searchProducts=(items,query)=>searchProductsForDisplay(items,query,searchOriginalProducts);

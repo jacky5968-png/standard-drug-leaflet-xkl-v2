@@ -11,7 +11,7 @@ export function searchProducts(products, query) {
 }
 function category(p, bank) {
   const x=normalize(p.ingredient+' '+p.english);
-  if(/febuxostat|allopurinol|benzbromarone/.test(x))return '高尿酸／痛風';
+  if(/febuxostat|allopurinol|benzbromarone|dotinurad/.test(x))return '高尿酸／痛風';
   if(/acarbose|gliclazide|glibenclamide|metformin|glimepiride|sitagliptin|vildagliptin|pioglitazone|repaglinide|miglitol/.test(x))return '糖尿病';
   if(/amlodipine|olmesartan/.test(x))return '高血壓';
   if(/levetiracetam|pregabalin|donepezil|escitalopram|zolpidem|alprazolam/.test(x))return '神經系統';
