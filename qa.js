@@ -32,7 +32,7 @@ const SAFETY=['warning','contra','adverse','patient','dose','renal','hepatic','e
 const PROFILES={
  'excipients':{roles:['excipient'],whole:true},
  'common-03':{roles:['composition'],whole:true},'common-04':{roles:['form'],whole:true},'common-06':{roles:['indication'],whole:true},
- 'common-07':{roles:['dose'],terms:['起始劑量','初始劑量','初期','開始劑量','起初','初次','初劑量']},
+ 'common-07':{roles:['dose'],terms:['起始劑量','起始建議劑量','初始劑量','初期','開始劑量','起初','初次','初劑量']},
  // 固定間隔的用量須同時有使用動作與明確數量；不將時間或頻次本身當作劑量。
  'common-08':{roles:['dose'],terms:['通常','一般','建議劑量','推薦','維持','後繼','成人','每次','每日','每天','一日'],pattern:/每(?:隔)?[\d一二兩三四五六七八九十半]+(?:[-－–—~～至到或][\d一二兩三四五六七八九十半]+)?(?:個)?小時(?:可|應|需|須|宜|建議)?(?:口含|含服|含用|含|口服|服用|使用|給予|給藥|服)(?:\d+(?:\.\d+)?|[一二兩三四五六七八九十半]+)(?:mg|毫克|錠|顆|片|粒|ml|毫升)/i},
  'common-09':{roles:['dose'],terms:['最高','最大','不得超過','不可超過','不能超過','不超過','上限']},
