@@ -50,11 +50,11 @@ export function renderPopularProducts(container, items, display, choose, doc = d
   items.forEach(({product, count}, index) => {
     const button = doc.createElement('button');
     button.type = 'button'; button.className = 'popular-product';
-    const label = display(product);
+    const label = display(product), productName = label.english || label.chinese;
     button.title = [label.english, product.license, '累計 ' + count.toLocaleString('zh-TW') + ' 次'].join('｜');
-    button.setAttribute('aria-label', '第' + (index + 1) + '名，' + label.chinese + '，累計' + count + '次，選擇此產品');
+    button.setAttribute('aria-label', '第' + (index + 1) + '名，' + productName + '，累計' + count + '次，選擇此產品');
     const rank = doc.createElement('span'); rank.className = 'popular-rank'; rank.textContent = String(index + 1);
-    const name = doc.createElement('span'); name.className = 'popular-name'; name.textContent = label.chinese || label.english;
+    const name = doc.createElement('span'); name.className = 'popular-name'; name.textContent = productName;
     const total = doc.createElement('small'); total.className = 'popular-count'; total.textContent = count.toLocaleString('zh-TW') + ' 次';
     button.append(rank, name, total); button.onclick = () => choose(product); container.append(button);
   });

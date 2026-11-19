@@ -1,7 +1,7 @@
 import {searchProducts as searchOriginalProducts,rankedQuestions,answerQuestion,normalize} from './engine.js?v=28-atorpid-20261030';
 import {QA_VERSION} from './qa.js?v=28-atorpid-20261030';
 import {configureProductDisplay,productDisplay,searchProductsForDisplay} from './product-display.js?v=20261025-name-audit';
-import {setupPopularProducts} from './popular-products.js?v=20261119-google';
+import {setupPopularProducts} from './popular-products.js?v=20261119-english-names';
 let popularity={record:async()=>false},singleQueryInFlight=false;
 const searchProducts=(items,query)=>searchProductsForDisplay(items,query,searchOriginalProducts);
 const $=id=>document.getElementById(id), esc=x=>String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
