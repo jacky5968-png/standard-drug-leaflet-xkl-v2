@@ -1,5 +1,5 @@
 /* 全站熱門品項，僅用於單品查詢。 */
-.popular-section{display:grid;grid-template-columns:76px minmax(0,1fr);gap:8px 12px;align-items:start;margin:4px 0 22px;font-family:"Microsoft JhengHei","微軟正黑體",sans-serif}
+.popular-section{display:grid;grid-template-columns:92px minmax(0,1fr);gap:8px 12px;align-items:start;margin:4px 0 22px;font-family:"Microsoft JhengHei","微軟正黑體",sans-serif}
 .popular-label{font-size:13px;color:var(--muted);line-height:1.8;padding-top:11px}
 .popular-products{display:flex;flex-wrap:wrap;gap:8px;min-width:0}
 .popular-product{display:flex;align-items:center;gap:8px;max-width:100%;min-height:46px;border:1px solid #9ebbcf;border-radius:2px;padding:9px 12px;background:#f1f7fb;color:var(--ink);font:inherit;text-align:left;line-height:1.6;cursor:pointer}
