@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="zh-Hant">
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="搜尋產品、輸入問題，查閱 XML 仿單原文與藥品比較。"><title>生達 | 藥品仿單查詢</title><link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="medical-journal.css?v=20261025-long-names"><script type="module" src="app.js?v=20261030-atorpid"></script><link rel="stylesheet" href="all-drugs.css?v=20261027-photo20"><script type="module" src="all-drugs-loader.js?v=20261027-photo-clean"></script></head>
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="搜尋產品、輸入問題，查閱 XML 仿單原文與藥品比較。"><title>生達 | 藥品仿單查詢</title><link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="medical-journal.css?v=20261025-long-names"><script type="module" src="app.js?v=20261119-google-popularity"></script><link rel="stylesheet" href="all-drugs.css?v=20261027-photo20"><script type="module" src="all-drugs-loader.js?v=20261027-photo-clean"></script><link rel="stylesheet" href="popular-products.css?v=20261119-google"></head>
 <body>
 <a class="skip-link" href="#main-content">跳至查詢內容</a>
 <header class="topbar"><div class="masthead-inner"><div><p class="editorial-kicker" hidden>DRUG INFORMATION <span aria-hidden="true">/</span> 藥品資訊</p><h1>生達 | 藥品仿單查詢</h1><p class="masthead-description">從產品到問題，查閱答案與仿單原文。</p></div><img class="site-avatar" src="assets/YT頭像.png" alt="網站頭像" width="64" height="64" decoding="async"><div class="masthead-index" hidden><span class="index-label">PRODUCT LIBRARY</span><strong id="header-count">180項產品</strong><span>依許可證與版本保留來源</span></div></div></header>
@@ -15,6 +15,7 @@
    <div class="query-column"><h2 class="field-heading"><span class="step-number">2</span><label for="single-question">問題</label></h2><div class="input-with-icon"><img src="assets/query-icons/question.svg" alt="" width="22" height="22"><input id="single-question" placeholder="例如：錠劑可否剝半、腎功能調整" autocomplete="off" aria-controls="single-choices"></div><p id="single-choice-label" class="field-caption">輸入問題，選擇建議問法</p><div id="single-choices" class="choices" aria-live="polite"></div></div>
   </div>
   <div class="examples" data-target="single"><span>常用問題</span><button>用法用量</button><button>腎功能</button><button>肝功能</button><button>可否剝半</button><button>交互作用</button><button>孕婦可否使用</button></div>
+  <section class="popular-section" aria-labelledby="popular-label"><span id="popular-label" class="popular-label">熱門查詢品項</span><div id="popular-products" class="popular-products"></div><p id="popular-status" class="popular-status" role="status" aria-live="polite">正在載入全站熱門查詢…</p></section>
   <div class="query-footer"><div class="query-summary"><p>您要查詢的是</p><strong id="single-summary">請先選擇產品與問題</strong></div><div class="query-actions"><button id="single-ask" class="primary" disabled>查詢</button><button id="single-clear" class="secondary">清除</button></div></div>
   <p id="single-hint" class="query-hint" aria-live="polite">先選擇產品與建議題目，再按「查詢」查看答案與來源。</p>
  </div>

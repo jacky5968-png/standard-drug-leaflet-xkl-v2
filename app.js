@@ -1,6 +1,8 @@
 import {searchProducts as searchOriginalProducts,rankedQuestions,answerQuestion,normalize} from './engine.js?v=28-atorpid-20261030';
 import {QA_VERSION} from './qa.js?v=28-atorpid-20261030';
 import {configureProductDisplay,productDisplay,searchProductsForDisplay} from './product-display.js?v=20261025-name-audit';
+import {setupPopularProducts} from './popular-products.js?v=20261119-google';
+let popularity={record:async()=>false},singleQueryInFlight=false;
 const searchProducts=(items,query)=>searchProductsForDisplay(items,query,searchOriginalProducts);
 const $=id=>document.getElementById(id), esc=x=>String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 let products=[],bank,extensions={questions:[],reviews:[]},auditHolds=[];
@@ -153,12 +155,12 @@ async function suggestQuestions(view){
   }catch(e){if(token===epochs[view])label.textContent=e.message}
 }
 function scheduleSuggestions(view){reset(view);if($(view+'-question').value.trim().length>=2)timers[view]=setTimeout(()=>suggestQuestions(view),300);else $(view+'-choice-label').textContent='輸入問題，選擇建議問法';}
-async function ask(view){const chosen=chosenProducts(view),t=selectedQuestions[view];if(!t||chosen.length<(view==='compare'?2:1))return;const token=++epochs[view];$(view+'-ask').disabled=true;$(view+'-hint').textContent='正在讀取本次查詢的答案與XML來源…';try{
+async function ask(view){if(view==='single'&&singleQueryInFlight)return;const chosen=chosenProducts(view),t=selectedQuestions[view];if(!t||chosen.length<(view==='compare'?2:1))return;if(view==='single')singleQueryInFlight=true;const token=++epochs[view];$(view+'-ask').disabled=true;$(view+'-hint').textContent='正在讀取本次查詢的答案與XML來源…';try{
  const[full,reviews,audit]=await Promise.all([Promise.all(chosen.map(load)),json('data/extensions.json'),json('data/audit-holds.json')]);if(token!==epochs[view])return;extensions=reviews;auditHolds=audit.engine_version===QA_VERSION?audit.holds:[];
  const results=$(view+'-results'),nav=$(view+'-product-nav');results.replaceChildren();nav.innerHTML=`<div class="product-nav-heading"><strong>查詢品項</strong><span>${full.length} 項</span></div>`;
  full.forEach((p,i)=>{const answer=answerQuestion(p,t,extensions.reviews,[...(extensions.pending_reviews||[]),...auditHolds]),article=view==='single'?singleCard(p,answer,i):card(p,answer);article.id=view+'-answer-'+i;if(view==='single'){const add=document.createElement('button');add.type='button';add.className='add-comparison text-button';add.textContent='加入比較';add.onclick=()=>{$('tab-compare').click();if(!$('compare-question').value.trim())$('compare-question').value=$('single-question').value;addComparisonProduct(chosen[i]);};article.querySelector('.answer-product').append(add);}results.append(article);const b=document.createElement('button');b.type='button';b.className='queried-product'+(i===0?' selected':'');b.innerHTML=`<strong>${esc(productDisplay(p).english)}</strong><span>${esc(productDisplay(p).chinese)}</span>`;b.onclick=()=>{nav.querySelectorAll('button').forEach(n=>n.classList.toggle('selected',n===b));const disclosure=article.querySelector('.single-qa');if(disclosure)disclosure.open=true;article.scrollIntoView({behavior:'smooth',block:'start'})};nav.append(b);});
- $(view+'-answer-layout').hidden=false;$(view+'-hint').textContent='已顯示上述詢問用詞的來源答案；修改輸入後請再次查詢。';
- }catch(e){if(token===epochs[view])$(view+'-hint').textContent=e.message;}finally{if(token===epochs[view])syncQuery(view);}}
+ $(view+'-answer-layout').hidden=false;$(view+'-hint').textContent='已顯示上述詢問用詞的來源答案；修改輸入後請再次查詢。';if(view==='single')void popularity.record(chosen[0].license);
+ }catch(e){if(token===epochs[view])$(view+'-hint').textContent=e.message;}finally{if(view==='single')singleQueryInFlight=false;if(token===epochs[view])syncQuery(view);}}
 function clearQuery(view){if(view==='compare')selected.compare=[null,null,null,null];else selected.single=null;reset(view);$('search-'+view).value='';$('search-'+view).setAttribute('aria-expanded','false');$('options-'+view).replaceChildren();$('meta-'+view).replaceChildren();$(view+'-question').value='';$('caption-'+view).textContent=view==='compare'?'搜尋並加入2～4項產品':'輸入後才顯示符合品項';$(view+'-choice-label').textContent='輸入問題，選擇建議問法';$('search-'+view).focus();}
 function highlight(root,q){if(!q)return;const walker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT);const nodes=[];while(walker.nextNode())nodes.push(walker.currentNode);for(const n of nodes){const value=n.textContent,needle=q.toLowerCase();let i=0,pos;const f=document.createDocumentFragment();while((pos=value.toLowerCase().indexOf(needle,i))>=0){f.append(document.createTextNode(value.slice(i,pos)));const m=document.createElement('mark');m.textContent=value.slice(pos,pos+q.length);f.append(m);i=pos+q.length}if(i){f.append(document.createTextNode(value.slice(i)));n.replaceWith(f)}}}
 async function renderLeaflet(){
@@ -203,5 +205,5 @@ for(const v of ['single']){
 }
 $('leaflet-query').addEventListener('input',renderLeaflet);
 window.addEventListener('focus',()=>json('data/extensions.json').then(value=>{extensions=value}).catch(()=>{}));
-try{const [index,questions,custom]=await Promise.all([json('data/products-index.json'),json('data/questions.json'),json('data/extensions.json')]);products=index.products;configureProductDisplay(products);bank=questions;extensions=custom;$('import-count').textContent=`${products.length} 項獨立許可證 · ${new Set(products.map(p=>p.category)).size} 個資料分類`;$('header-count').textContent=products.length+'項產品'}
+try{const [index,questions,custom]=await Promise.all([json('data/products-index.json'),json('data/questions.json'),json('data/extensions.json')]);products=index.products;configureProductDisplay(products);popularity=setupPopularProducts({products,display:productDisplay,choose:p=>{productPickers.get('single')(p);$('single-question').focus();}});bank=questions;extensions=custom;$('import-count').textContent=`${products.length} 項獨立許可證 · ${new Set(products.map(p=>p.category)).size} 個資料分類`;$('header-count').textContent=products.length+'項產品'}
 catch(e){fail(e);document.querySelectorAll('.primary').forEach(b=>b.disabled=true)}
