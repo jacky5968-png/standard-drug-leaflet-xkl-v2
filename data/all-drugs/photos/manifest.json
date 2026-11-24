@@ -1,19 +1,19 @@
 {
   "schema": 1,
-  "version": "10cbaae70672ebac",
-  "index": "releases/10cbaae70672ebac/index.json",
-  "compressed_index": "releases/10cbaae70672ebac/index.json.gz",
-  "license_count": 6372,
+  "version": "f6ecb23d7e55be50",
+  "index": "releases/f6ecb23d7e55be50/index.json",
+  "compressed_index": "releases/f6ecb23d7e55be50/index.json.gz",
+  "license_count": 6395,
   "source": {
     "dataset": "9120",
     "catalog_url": "https://data.gov.tw/dataset/9120",
     "download_url": "https://data.fda.gov.tw/data/opendata/export/42/csv",
-    "downloaded_at": "2026-11-16T19:01:32.031505+08:00",
-    "sha256": "0fcf505b009006df74187ab4a6630aad848a27e105b8240857b19edf66e02062",
-    "rows": 6399,
+    "downloaded_at": "2026-11-23T18:47:24.309903+08:00",
+    "sha256": "671765f44e841a8e592e1789ae3003a01a1a2c6dfa853adfdbe1aa508d8cbe6a",
+    "rows": 6422,
     "license": "政府資料開放授權條款第1版"
   },
-  "built_at": "2026-11-16T19:01:32.496095+08:00",
-  "index_sha256": "10cbaae70672ebac8274cb4638d6d51c1672ffc815af6d052dafebe2569a2e83",
-  "gzip_sha256": "57cc5ff3d55d216e8a0533b76f049705f3ea017fea11658d661622cdbf01de01"
+  "built_at": "2026-11-23T18:47:24.738317+08:00",
+  "index_sha256": "f6ecb23d7e55be5003a58c969a0fb900972ff20d737b319c9f68103072113192",
+  "gzip_sha256": "e48f623eea7469be02a3b307d53b613ebfc933d3fc323f2a94542dbaaa250127"
 }
